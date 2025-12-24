@@ -10,9 +10,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body class="bg-gray min-h-screen">
-
     <love-navbar></love-navbar>
-    <script src="components/love-navbar.js"></script>
+    <script src="love-navbar.js"></script>
 
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-md mx-auto text-center">
@@ -37,16 +36,7 @@
         </div>
     </div>
 
-    <!-- Bouton Musique -->
-    <button id="musicBtn" class="fixed bottom-6 right-6 bg-pink-300 text-white px-4 py-2 rounded-full shadow-md hover:bg-pink-400 transition">
-        ▶️ Musique
-    </button>
-
-    <!-- Musique de fond -->
-    <audio id="bgMusic" src="background-music/love for u.mp3" loop></audio>
-
     <script>
-        // Affichage du rythme cardiaque
         document.getElementById('heartRateBtn').addEventListener('click', function() {
             const display = document.getElementById('heartRateDisplay');
             display.classList.toggle('hidden');
@@ -57,32 +47,7 @@
                 document.getElementById('heartRate').textContent = heartRate;
             }
         });
-
-        // Feather Icons
-        feather.replace();
-
-        // Contrôle musique
-        const bgMusic = document.getElementById("bgMusic");
-        const musicBtn = document.getElementById("musicBtn");
-
-        musicBtn.addEventListener("click", () => {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicBtn.textContent = "⏸️ Pause";
-            } else {
-                bgMusic.pause();
-                musicBtn.textContent = "▶️ Musique";
-            }
-        });
-
-        // Tenter autoplay (certains navigateurs bloquent le autoplay)
-        window.addEventListener('load', () => {
-            bgMusic.play().catch(() => {
-                // Si autoplay bloqué, l'utilisateur peut cliquer sur le bouton
-                musicBtn.textContent = "▶️ Musique";
-            });
-        });
     </script>
-
+    <script>feather.replace();</script>
 </body>
 </html>
