@@ -29,69 +29,69 @@ class LoveNavbar extends HTMLElement {
                     color: white;
                     text-decoration: none;
                     font-weight: 500;
-                    transition: all 0.3s ease;
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
+                    transition: .3s;
                 }
-                .nav-link:hover {
-                    color: #FFD1DC;
-                }
-                @media (max-width: 768px) {
-                    .nav-container {
-                        flex-direction: column;
-                        gap: 1rem;
-                    }
-                    .nav-links {
-                        width: 100%;
-                        justify-content: space-around;
-                    }
-                }
-                /* Bouton musique flottant */
+                .nav-link:hover { color:#FFD1DC }
+                
                 #musicBtn {
                     position: fixed;
                     bottom: 20px;
                     right: 20px;
-                    background-color: #FF6B8B;
-                    color: white;
-                    padding: 10px 15px;
-                    border-radius: 9999px;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-                    cursor: pointer;
-                    z-index: 1000;
-                    transition: background-color 0.3s;
+                    background:#FF6B8B;
+                    color:white;
+                    padding:10px 15px;
+                    border-radius:9999px;
+                    box-shadow:0 4px 6px rgba(0,0,0,.2);
+                    cursor:pointer;
+                    z-index:1000;
                 }
             </style>
+
             <nav>
                 <div class="nav-container">
                     <a href="index.html" class="logo">Mon Amour 💝</a>
+
                     <div class="nav-links">
-                        <a href="gallery.html" class="nav-link"><i data-feather="image"></i> Galerie</a>
-                        <a href="counter.html" class="nav-link"><i data-feather="clock"></i> Notre Temps</a>
-                        <a href="music.html" class="nav-link"><i data-feather="music"></i> Nos Musiques</a>
-                        <a href="heart.html" class="nav-link"><i data-feather="heart"></i> Mon Cœur</a>
+                        <a href="gallery.html" class="nav-link">
+                            <i data-feather="image"></i> Galerie
+                        </a>
+                        <a href="counter.html" class="nav-link">
+                            <i data-feather="clock"></i> Notre Temps
+                        </a>
+                        <a href="music.html" class="nav-link">
+                            <i data-feather="music"></i> Nos Musiques
+                        </a>
+                        <a href="heart.html" class="nav-link">
+                            <i data-feather="heart"></i> Mon Cœur
+                        </a>
                     </div>
                 </div>
             </nav>
-            <!-- Bouton musique -->
+
             <button id="musicBtn">▶️ Musique</button>
         `;
 
-        // Initialiser Feather Icons
-        feather.replace();
+        // Convertir les icônes dans le shadow DOM
+        this.shadowRoot.querySelectorAll("[data-feather]").forEach(el => {
+            const icon = feather.icons[el.getAttribute("data-feather")].toSvg();
+            el.outerHTML = icon;
+        });
 
-        // Contrôle musique
+        // Audio global
         const bgMusic = document.getElementById('bgMusic') || (() => {
             const audio = document.createElement('audio');
             audio.id = 'bgMusic';
-            audio.src = 'background-music/love for u.mp3'; // chemin par défaut
-            audio.autoplay = true;
+            audio.src = 'background-music/love for u.mp3';
             audio.loop = true;
             document.body.appendChild(audio);
             return audio;
         })();
 
         const musicBtn = this.shadowRoot.getElementById('musicBtn');
+
         musicBtn.addEventListener('click', () => {
             if (bgMusic.paused) {
                 bgMusic.play();
@@ -101,14 +101,7 @@ class LoveNavbar extends HTMLElement {
                 musicBtn.textContent = '▶️ Musique';
             }
         });
-
-        window.addEventListener('load', () => {
-            bgMusic.play().catch(() => {
-                musicBtn.textContent = '▶️ Musique';
-            });
-        });
     }
 }
-
 
 customElements.define('love-navbar', LoveNavbar);
