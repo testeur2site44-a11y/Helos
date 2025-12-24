@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre Temps Ensemble | Mon Amour</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <love-navbar></love-navbar>
+    <script src="components/love-navbar.js"></script>
+
+    <div class="container mx-auto px-4 py-12">
+
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-8 text-center border-2 border-pink-400">
+
+            <h1 class="text-3xl font-bold text-pink-500 mb-6">
+                Notre Temps Ensemble
+            </h1>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+
+                <div class="bg-pink-500 rounded-lg p-4 text-white">
+                    <div id="days" class="text-3xl font-bold">0</div>
+                    <div class="text-sm">Jours</div>
+                </div>
+
+                <div class="bg-pink-500 rounded-lg p-4 text-white">
+                    <div id="hours" class="text-3xl font-bold">0</div>
+                    <div class="text-sm">Heures</div>
+                </div>
+
+                <div class="bg-pink-500 rounded-lg p-4 text-white">
+                    <div id="minutes" class="text-3xl font-bold">0</div>
+                    <div class="text-sm">Minutes</div>
+                </div>
+
+                <div class="bg-pink-500 rounded-lg p-4 text-white">
+                    <div id="seconds" class="text-3xl font-bold">0</div>
+                    <div class="text-sm">Secondes</div>
+                </div>
+
+            </div>
+            
+            <p class="text-gray-700 mb-2">
+                Depuis notre première rencontre le 
+                <span class="font-bold text-pink-500">
+                    1er Novembre 2025
+                </span>
+            </p>
+
+            <p class="text-gray-500 mb-6">
+                Chaque instant avec toi est précieux ❤️
+            </p>
+
+            <!-- Bouton retour -->
+            <div class="text-center">
+                <a href="navbar.js" class="inline-block px-6 py-3 bg-pink-300 text-white font-medium rounded-lg shadow-md hover:bg-pink-400 transition-transform transform hover:scale-95">
+                    ← Retour
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Compteur -->
+    <script>
+        const startDate = new Date("2025-11-01T00:00:00");
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+        }
+
+        updateCounter();
+        setInterval(updateCounter, 1000);
+    </script>
+
+    <script>feather.replace();</script>
+
+    <!-- Musique de fond -->
+    <audio id="bgMusic" src="background-music/love for u.mp3" loop></audio>
+
+    <!-- Bouton flottant pour contrôler la musique -->
+    <button id="musicBtn" class="fixed bottom-6 right-6 bg-pink-300 text-white px-4 py-2 rounded-full shadow-md hover:bg-pink-400 transition">
+        ▶️ Musique
+    </button>
+
+    <script>
+        const bgMusic = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+
+        musicBtn.addEventListener("click", () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.textContent = "⏸️ Pause";
+            } else {
+                bgMusic.pause();
+                musicBtn.textContent = "▶️ Musique";
+            }
+        });
+    </script>
+
+</body>
+</html>

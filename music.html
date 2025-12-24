@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Musiques | Mon Amour</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* Bouton musique flottant */
+        #musicBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FF6B8B;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 1000;
+        }
+        #musicBtn:hover {
+            background-color: #FF3D6B;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <love-navbar></love-navbar>
+    <script src="components/love-navbar.js"></script>
+
+    <div class="container mx-auto px-4 py-12">
+
+        <h1 class="text-3xl font-bold text-center text-pink-500 mb-8">
+            Notre Playlist d'Amour
+        </h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Music 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-pink-400">
+                <div class="w-full aspect-video">
+                    <iframe class="w-full h-full"
+                        src="https://www.youtube.com/embed/cwyc3rK0FUs"
+                        title="YouTube video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-medium text-gray-800">Notre Chanson</h3>
+                    <p class="text-gray-500">Celle qui me fait penser à toi 💖</p>
+                </div>
+            </div>
+
+            <!-- Music 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-pink-400">
+                <div class="w-full aspect-video">
+                    <iframe class="w-full h-full"
+                        src="https://www.youtube.com/embed/Ip6cw8gfHHI"
+                        title="YouTube video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-medium text-gray-800">Pour Danser Ensemble</h3>
+                    <p class="text-gray-500">Notre future première danse ✨</p>
+                </div>
+            </div>
+
+            <!-- Music 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-pink-400">
+                <div class="w-full aspect-video">
+                    <iframe class="w-full h-full"
+                        src="https://www.youtube.com/embed/NB7WuqWzDhw"
+                        title="YouTube video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-medium text-gray-800">Pour Rire Ensemble</h3>
+                    <p class="text-gray-500">Quand on est heureux 😄</p>
+                </div>
+            </div>
+
+            <!-- Music 4 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-pink-400">
+                <div class="w-full aspect-video">
+                    <iframe class="w-full h-full"
+                        src="https://www.youtube.com/embed/lSD_L-xic9o"
+                        title="YouTube video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-medium text-gray-800">Pour les Moments Tendres</h3>
+                    <p class="text-gray-500">Quand on se fait des câlins 🥰</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bouton Retour personnalisé -->
+    <footer class="text-center py-6">
+        <a href="navbar.js" class="btn-retour inline-block px-4 py-2 border rounded-lg bg-pink-200 text-pink-700 font-semibold transition-transform duration-150">
+            <i data-feather="arrow-left"></i> Retour
+        </a>
+    </footer>
+
+    <!-- Bouton Musique -->
+    <button id="musicBtn">▶️ Musique</button>
+
+    <!-- Musique de fond -->
+    <audio id="bgMusic" src="background-music/love-for-u.mp3" loop></audio>
+
+    <script src="script.js"></script>
+    <script>
+        // Feather Icons
+        feather.replace();
+
+        // Boutons retour animation
+        const boutonsRetour = document.querySelectorAll('.btn-retour');
+        boutonsRetour.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                btn.classList.add('scale-90');
+                setTimeout(() => {
+                    btn.classList.remove('scale-90');
+                    window.location.href = btn.getAttribute('href');
+                }, 150);
+            });
+        });
+
+        // Contrôle musique
+        const bgMusic = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+
+        function playMusic() {
+            bgMusic.play().then(() => {
+                musicBtn.textContent = "⏸️ Pause";
+            }).catch(() => {
+                musicBtn.textContent = "▶️ Musique";
+            });
+        }
+
+        musicBtn.addEventListener("click", () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.textContent = "⏸️ Pause";
+            } else {
+                bgMusic.pause();
+                musicBtn.textContent = "▶️ Musique";
+            }
+        });
+
+        // Lancer la musique dès que l'utilisateur interagit
+        const startMusicOnInteraction = () => {
+            playMusic();
+            window.removeEventListener('click', startMusicOnInteraction);
+            window.removeEventListener('keydown', startMusicOnInteraction);
+            window.removeEventListener('scroll', startMusicOnInteraction);
+        };
+
+        window.addEventListener('click', startMusicOnInteraction);
+        window.addEventListener('keydown', startMusicOnInteraction);
+        window.addEventListener('scroll', startMusicOnInteraction);
+    </script>
+</body>
+</html>

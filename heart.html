@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Cœur Pour Toi | Mon Amour</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray min-h-screen">
+
+    <love-navbar></love-navbar>
+    <script src="components/love-navbar.js"></script>
+
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-md mx-auto text-center">
+            <h1 class="text-3xl font-bold text-pink mb-8">Mon Cœur Bat Pour Toi</h1>
+            
+            <div class="heart-beat">
+                <svg width="300" height="300" viewBox="0 0 200 200" class="mx-auto">
+                    <path fill="#FF6B8B" d="M100,36.4c25,0,45.5,19.5,45.5,45.5c0,13.1-5.6,25.9-15.3,34.6L100,163.6L69.8,116.5c-9.7-8.7-15.3-21.5-15.3-34.6C54.5,55.9,75,36.4,100,36.4 M100,30c-28.7,0-52,23.3-52,52c0,15.7,6.8,30.5,18.7,40.7L100,175l33.3-52.3c11.9-10.2,18.7-25,18.7-40.7C152,53.3,128.7,30,100,30L100,30z"/>
+                </svg>
+            </div>
+            
+            <p class="text-dark mt-8">Chaque battement est pour toi, mon amour ❤️</p>
+            
+            <div class="mt-8">
+                <button id="heartRateBtn" class="px-4 py-2 bg-pink text-light rounded-lg hover:bg-light-pink transition">
+                    <i data-feather="activity" class="mr-2"></i> Voir mon rythme cardiaque
+                </button>
+                <div id="heartRateDisplay" class="mt-4 text-dark hidden">
+                    <p>Mon cœur bat à <span id="heartRate" class="font-bold text-pink">72</span> battements par minute quand je pense à toi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton Musique -->
+    <button id="musicBtn" class="fixed bottom-6 right-6 bg-pink-300 text-white px-4 py-2 rounded-full shadow-md hover:bg-pink-400 transition">
+        ▶️ Musique
+    </button>
+
+    <!-- Musique de fond -->
+    <audio id="bgMusic" src="background-music/love for u.mp3" loop></audio>
+
+    <script>
+        // Affichage du rythme cardiaque
+        document.getElementById('heartRateBtn').addEventListener('click', function() {
+            const display = document.getElementById('heartRateDisplay');
+            display.classList.toggle('hidden');
+            
+            // Random heart rate between 60 and 120
+            if(!display.classList.contains('hidden')) {
+                const heartRate = Math.floor(Math.random() * 60) + 60;
+                document.getElementById('heartRate').textContent = heartRate;
+            }
+        });
+
+        // Feather Icons
+        feather.replace();
+
+        // Contrôle musique
+        const bgMusic = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+
+        musicBtn.addEventListener("click", () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.textContent = "⏸️ Pause";
+            } else {
+                bgMusic.pause();
+                musicBtn.textContent = "▶️ Musique";
+            }
+        });
+
+        // Tenter autoplay (certains navigateurs bloquent le autoplay)
+        window.addEventListener('load', () => {
+            bgMusic.play().catch(() => {
+                // Si autoplay bloqué, l'utilisateur peut cliquer sur le bouton
+                musicBtn.textContent = "▶️ Musique";
+            });
+        });
+    </script>
+
+</body>
+</html>

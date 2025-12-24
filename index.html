@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Cœur Pour Toi 💝</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #FFB6C1 0%, #E5E5E5 50%, #FFFFFF 100%);
+        }
+        /* Bouton musique flottant */
+        #musicBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FF6B8B;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #musicBtn:hover {
+            background-color: #FF3D6B;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans">
+
+    <div class="gradient-bg min-h-screen flex items-center justify-center">
+        <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-8 border-2 border-pink">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-pink">Mon Cadeau de Noël Pour Toi</h1>
+                <p class="text-dark mt-2">Ouvre ce coffre à souvenirs rempli d'amour</p>
+            </div>
+            
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label for="password" class="block text-sm font-medium text-dark">Mot de passe magique</label>
+                    <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink focus:border-pink">
+                </div>
+                
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-light bg-pink hover:bg-light-pink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink">
+                        Ouvrir mon cœur <i data-feather="heart" class="ml-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bouton Musique -->
+    <button id="musicBtn">▶️ Musique</button>
+
+    <!-- Musique de fond -->
+    <audio id="bgMusic" src="background-music/love for u.mp3" loop></audio>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+
+        // Redirection du bouton vers navbar.js
+        const btnCoeur = document.querySelector('#loginForm button');
+        btnCoeur.addEventListener('click', (e) => {
+            e.preventDefault(); // empêche l'envoi du formulaire
+            window.location.href = 'navbar.js'; // redirection
+        });
+
+        // Contrôle musique
+        const bgMusic = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+
+        musicBtn.addEventListener("click", () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.textContent = "⏸️ Pause";
+            } else {
+                bgMusic.pause();
+                musicBtn.textContent = "▶️ Musique";
+            }
+        });
+
+        // Tenter autoplay
+        window.addEventListener('load', () => {
+            bgMusic.play().catch(() => {
+                // Si autoplay bloqué, l'utilisateur peut cliquer sur le bouton
+                musicBtn.textContent = "▶️ Musique";
+            });
+        });
+    </script>
+    
+
+</body>
+</html>
